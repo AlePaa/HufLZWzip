@@ -1,33 +1,33 @@
 package com.alpa.huflzwzip.algo;
 
-import java.io.FileInputStream;
+import com.alpa.huflzwzip.datastruct.HuffmanTree;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.PriorityQueue;
 
 public class Huffman implements Compressor {
 
     @Override
-    public void encode(FileInputStream input) {
-        HashMap<Integer, Integer> frequencies = new HashMap();
-        try {
-            while (input.read() != -1) {
-                int symbol = input.read();
+    public void encode(BufferedInputStream input) throws IOException {
+        HashMap<Character, Integer> frequencies = new HashMap();
 
-                if (!frequencies.containsKey(symbol)) {
-                    frequencies.put(symbol, 1);
-                } else {
-                    frequencies.put(symbol, frequencies.get(symbol) + 1);
-                }
+        while (input.read() != -1) {
+            Character current = (char) input.read();
+
+            if (frequencies.get(current) != null) {
+                int count = frequencies.get(current);
+                frequencies.put(current, count + 1);
+            } else {
+                frequencies.put(current, 1);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Huffman.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        PriorityQueue<HuffmanTree> nodeQueue = new PriorityQueue();
     }
 
     @Override
-    public void decode(FileInputStream input) {
+    public void decode(BufferedInputStream input) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
