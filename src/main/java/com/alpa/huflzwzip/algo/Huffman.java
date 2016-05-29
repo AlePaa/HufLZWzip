@@ -11,7 +11,7 @@ public class Huffman implements Compressor {
     @Override
     public void encode(BufferedInputStream input) throws IOException {
         HashMap<Character, Integer> frequencies = new HashMap();
-
+        // Parse input data and count the frequencies of distinct byte values
         while (input.read() != -1) {
             Character current = (char) input.read();
 
@@ -23,7 +23,8 @@ public class Huffman implements Compressor {
             }
         }
 
-        PriorityQueue<HuffmanTree> nodeQueue = new PriorityQueue();
+        // Create the leaf nodes and add them to the queue
+        PriorityQueue<HuffmanTree> leafQueue = new PriorityQueue();
     }
 
     @Override

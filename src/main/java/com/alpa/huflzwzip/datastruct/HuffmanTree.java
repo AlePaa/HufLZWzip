@@ -2,13 +2,13 @@ package com.alpa.huflzwzip.datastruct;
 
 public class HuffmanTree implements Comparable<HuffmanTree> {
 
-    private static int symbol;
+    private static char symbol;
     private int freq;
 
     private HuffmanTree leftChild, rightChild;
 
     // Leaf constructor
-    HuffmanTree(int s, int f) {
+    HuffmanTree(char s, int f) {
         symbol = s;
         freq = f;
     }

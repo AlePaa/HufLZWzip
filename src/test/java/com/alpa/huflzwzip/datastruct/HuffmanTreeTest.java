@@ -5,10 +5,7 @@
  */
 package com.alpa.huflzwzip.datastruct;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,8 +19,8 @@ public class HuffmanTreeTest {
 
     @Before
     public void setUp() {
-        left = new HuffmanTree(5, 5);
-        right = new HuffmanTree(6, 6);
+        left = new HuffmanTree('a', 5);
+        right = new HuffmanTree('b', 6);
         branch = new HuffmanTree(left, right);
     }
 
@@ -32,7 +29,7 @@ public class HuffmanTreeTest {
      */
     @Test
     public void testGetSymbolLeaf() {
-        int expResult = 6;
+        char expResult = 'b';
         assertEquals(expResult, right.getSymbol());
     }
 
@@ -90,7 +87,7 @@ public class HuffmanTreeTest {
 
     @Test
     public void testCompareToEqual() {
-        HuffmanTree eqTree = new HuffmanTree(5, 5);
+        HuffmanTree eqTree = new HuffmanTree('a', 5);
         assertEquals(0, left.compareTo(eqTree));
     }
 }
