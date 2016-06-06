@@ -77,12 +77,12 @@ public class HuffmanTreeTest {
 
     @Test
     public void testCompareToLess() {
-        assertEquals(-1, left.compareTo(right));
+        assertEquals(1, left.compareTo(right));
     }
 
     @Test
     public void testCompareToMore() {
-        assertEquals(1, right.compareTo(left));
+        assertEquals(-1, right.compareTo(left));
     }
 
     @Test
@@ -90,4 +90,5 @@ public class HuffmanTreeTest {
         HuffmanTree eqTree = new HuffmanTree('a', 5);
         assertEquals(0, left.compareTo(eqTree));
     }
+    
 }
