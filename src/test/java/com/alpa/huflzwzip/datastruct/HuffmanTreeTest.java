@@ -15,13 +15,14 @@ import static org.junit.Assert.*;
  */
 public class HuffmanTreeTest {
 
-    private HuffmanTree branch, left, right;
-
+    private HuffmanLeaf left, right;
+    private HuffmanBranch branch;
+    
     @Before
     public void setUp() {
-        left = new HuffmanTree('a', 5);
-        right = new HuffmanTree('b', 6);
-        branch = new HuffmanTree(left, right);
+        left = new HuffmanLeaf('a', 5);
+        right = new HuffmanLeaf('b', 6);
+        branch = new HuffmanBranch(left, right);
     }
 
     /**
@@ -30,7 +31,7 @@ public class HuffmanTreeTest {
     @Test
     public void testGetSymbolLeaf() {
         char expResult = 'b';
-        assertEquals(expResult, right.getSymbol());
+        assertEquals(expResult, right.symbol);
     }
 
     /**
@@ -39,7 +40,7 @@ public class HuffmanTreeTest {
     @Test
     public void testGetFrequencyLeaf() {
         int expResult = 5;
-        assertEquals(expResult, left.getFrequency());
+        assertEquals(expResult, left.freq);
     }
 
     /**
@@ -47,7 +48,7 @@ public class HuffmanTreeTest {
      */
     @Test
     public void testGetRightChildBranch() {
-        HuffmanTree result = branch.getRightChild();
+        HuffmanTree result = branch.rightChild;
         assertEquals(right, result);
     }
 
@@ -56,38 +57,28 @@ public class HuffmanTreeTest {
      */
     @Test
     public void testGetLeftChildBranch() {
-        HuffmanTree result = branch.getLeftChild();
+        HuffmanTree result = branch.leftChild;
         assertEquals(left, result);
     }
 
     @Test
     public void testGetBranchFrequency() {
-        assertEquals(11, branch.getFrequency());
-    }
-
-    @Test
-    public void testLeafisLeaf() {
-        assertEquals(true, left.isLeaf());
-    }
-
-    @Test
-    public void testBranchisNotLeaf() {
-        assertEquals(false, branch.isLeaf());
+        assertEquals(11, branch.freq);
     }
 
     @Test
     public void testCompareToLess() {
-        assertEquals(1, left.compareTo(right));
+        assertEquals(-1, left.compareTo(right));
     }
 
     @Test
     public void testCompareToMore() {
-        assertEquals(-1, right.compareTo(left));
+        assertEquals(1, right.compareTo(left));
     }
 
     @Test
     public void testCompareToEqual() {
-        HuffmanTree eqTree = new HuffmanTree('a', 5);
+        HuffmanLeaf eqTree = new HuffmanLeaf('a', 5);
         assertEquals(0, left.compareTo(eqTree));
     }
     

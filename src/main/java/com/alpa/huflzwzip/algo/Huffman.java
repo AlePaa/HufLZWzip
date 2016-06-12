@@ -1,5 +1,7 @@
 package com.alpa.huflzwzip.algo;
 
+import com.alpa.huflzwzip.datastruct.HuffmanBranch;
+import com.alpa.huflzwzip.datastruct.HuffmanLeaf;
 import com.alpa.huflzwzip.datastruct.HuffmanTree;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -24,6 +26,8 @@ public class Huffman implements Compressor {
             }
         }
         HuffmanTree tree = buildTree(frequencies);
+        
+        
     }
 
     @Override
@@ -37,7 +41,7 @@ public class Huffman implements Compressor {
         // Create the leaf nodes and add them to the queue
         PriorityQueue<HuffmanTree> leafQueue = new PriorityQueue<>();
         for (Map.Entry<Character, Integer> entry : frequencies.entrySet()) {
-            leafQueue.add(new HuffmanTree(entry.getKey(), entry.getValue()));
+            leafQueue.add(new HuffmanLeaf(entry.getKey(), entry.getValue()));
         }
 
         // Build the Huffman tree from the leaves
@@ -53,19 +57,19 @@ public class Huffman implements Compressor {
 
             // Choose the lightest trees for leaves a and b.
             // Placeholder until a more intelligent way of handling this is found.
-            if (leafQueue.peek().getFrequency() <= assistQueue.peek().getFrequency()) {
+            if (leafQueue.peek().freq <= assistQueue.peek().freq) {
                 a = leafQueue.remove();
             } else {
                 a = assistQueue.remove();
             }
 
-            if (leafQueue.peek().getFrequency() <= assistQueue.peek().getFrequency()) {
+            if (leafQueue.peek().freq <= assistQueue.peek().freq) {
                 b = leafQueue.remove();
             } else {
                 b = assistQueue.remove();
             }
 
-            HuffmanTree branch = new HuffmanTree(a, b);
+            HuffmanTree branch = new HuffmanBranch(a, b);
             assistQueue.add(branch);
         }
         // Last node is the root node
