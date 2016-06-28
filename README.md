@@ -1,1 +1,1 @@
-A couple data compression algorithm implementations using Java
+Huffman coding and its data structures implemented using Java

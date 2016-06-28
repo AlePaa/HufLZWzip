@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.alpa.huflzwzip.datastruct;
+package com.alpa.util;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,6 +37,17 @@ public class ArrayListTest {
     public void tearDown() {
     }
 
+    @Test
+    public void testConstructorWithNegativeParametersShouldThrowException() {
+        try {
+            ArrayList testList = new ArrayList(-10);
+            fail("Constructor did not throw an exception with illegal arguments");
+        } catch (IllegalArgumentException ex) {
+            assertNotNull(ex);
+        }
+
+    }
+
     /**
      * Test of add method, of class ArrayList.
      */
@@ -51,6 +62,16 @@ public class ArrayListTest {
         assertEquals(3, testList.size());
         Integer expResult = 2;
         assertEquals(expResult, testList.get(1));
+    }
+
+    @Test
+    public void testAddTriggersGrow() {
+        ArrayList<Integer> testList = new ArrayList(2);
+        testList.add(1);
+        testList.add(2);
+        testList.add(3);
+        assertEquals(3, testList.size());
+        assertEquals((Integer) 3, testList.get(2));
     }
 
     /**
@@ -70,12 +91,22 @@ public class ArrayListTest {
      */
     @Test
     public void testGet() {
-        ArrayList<Integer> testList = new ArrayList();
-        testList.add(1);
-        testList.add(2);
-        testList.add(3);
+        ArrayList<Integer> testList = createList(4);
         Integer expResult = 2;
-        assertEquals(expResult, testList.get(1));
+        assertEquals(expResult, testList.get(2));
+    }
+
+    @Test
+    public void testTrimtoSize() {
+        ArrayList<Integer> testList = createList(5);
+        assertEquals(5, testList.size());
+        assertEquals(10, testList.length());
+        testList.remove(1);
+        testList.remove(3);
+        testList.trimToSize();
+
+        assertEquals(3, testList.size());
+        assertEquals(3, testList.length());
     }
 
     /**
@@ -114,15 +145,21 @@ public class ArrayListTest {
         testList.remove(0);
         assertEquals(0, testList.size());
     }
-    
+
+    @Test
+    public void testRemovingOverPermittedIndexThrowsException() {
+        ArrayList<Integer> testList = new ArrayList(2);
+        try {
+            testList.remove(5);
+            fail("No exception was thrown when removing over permitted index");
+        } catch (IndexOutOfBoundsException ex) {
+            assertNotNull(ex);
+        }
+    }
+
     @Test
     public void testIterate() {
-        ArrayList<Integer> testList = new ArrayList();
-        testList.add(0);
-        testList.add(1);
-        testList.add(2);
-        testList.add(3);
-        testList.add(4);
+        ArrayList<Integer> testList = createList(5);
         int counter = 0;
         for (int i : testList) {
             assertEquals(i, counter);
@@ -143,11 +180,7 @@ public class ArrayListTest {
 
     @Test
     public void testConstructorWithListParameter() {
-        ArrayList<Integer> otherList = new ArrayList();
-        otherList.add(0);
-        otherList.add(1);
-        otherList.add(2);
-        otherList.add(3);
+        ArrayList<Integer> otherList = createList(4);
         ArrayList<Integer> testList = new ArrayList(otherList);
         assertEquals(4, testList.size());
         assertEquals(new Integer(1), testList.get(1));
@@ -162,12 +195,7 @@ public class ArrayListTest {
     @Test
     public void testArrayListInception() {
         ArrayList<ArrayList<Integer>> testList = new ArrayList();
-        ArrayList<Integer> innerList = new ArrayList();
-        innerList.add(0);
-        innerList.add(1);
-        innerList.add(2);
-        innerList.add(3);
-        innerList.add(4);
+        ArrayList<Integer> innerList = createList(5);
         testList.add(innerList);
         ArrayList<Integer> result = testList.get(0);
         int counter = 0;
@@ -175,6 +203,14 @@ public class ArrayListTest {
             assertEquals(i, counter);
             counter++;
         }
+    }
+
+    public ArrayList createList(int i) {
+        ArrayList testList = new ArrayList();
+        for (int j = 0; j < i; j++) {
+            testList.add(j);
+        }
+        return testList;
     }
 
 }

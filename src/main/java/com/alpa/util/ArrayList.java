@@ -1,13 +1,22 @@
-package com.alpa.huflzwzip.datastruct;
+package com.alpa.util;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
+/**
+ * A generic ArrayList implementation
+ *
+ * @param <E> the type of element used
+ */
 public class ArrayList<E> implements Iterable<E> {
 
     private transient Object data[];
     private int size = 0;
 
+    /**
+     * Creates a new ArrayList with the given capacity.
+     *
+     * @param capacity the initial capacity for the data array
+     */
     public ArrayList(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("Initial capacity must not be negative");
@@ -15,10 +24,18 @@ public class ArrayList<E> implements Iterable<E> {
         data = new Object[capacity];
     }
 
+    /**
+     * The default constructor. Sets the capacity at 10.
+     */
     public ArrayList() {
-        data = new Object[10];
+        this(10);
     }
 
+    /**
+     * Creates a new ArrayList from the input ArrayList
+     *
+     * @param a the ArrayList to copy
+     */
     public ArrayList(ArrayList<E> a) {
         data = a.toArray();
         size = data.length;
@@ -28,6 +45,9 @@ public class ArrayList<E> implements Iterable<E> {
         }
     }
 
+    /**
+     * Shrinks the array to match the current size
+     */
     public void trimToSize() {
         int oldCapacity = data.length;
         if (size < oldCapacity) {
@@ -75,11 +95,21 @@ public class ArrayList<E> implements Iterable<E> {
     }
 
     /**
+     * Returns the number of elements currently stored in the array
      *
      * @return the number of elements in the array
      */
     public int size() {
         return size;
+    }
+
+    /**
+     * Returns the total size of the data array
+     *
+     * @return the size of the data array
+     */
+    public int length() {
+        return data.length;
     }
 
     /**
@@ -91,6 +121,7 @@ public class ArrayList<E> implements Iterable<E> {
     }
 
     /**
+     * Removes an element from the array
      *
      * @param index the index in the array to empty
      * @return the removed element of the index
@@ -99,8 +130,8 @@ public class ArrayList<E> implements Iterable<E> {
         rangeCheck(index);
 
         E removedElement = (E) data[index];
-        for (int i = index; i < size; i++) {
-            data[i] = data[i + 1];
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
         }
         size--;
         return removedElement;
@@ -120,11 +151,12 @@ public class ArrayList<E> implements Iterable<E> {
      */
     private void rangeCheck(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + size);
         }
     }
 
     /**
+     * Returns a generic typecast of an array element
      *
      * @param index
      * @return
@@ -137,6 +169,10 @@ public class ArrayList<E> implements Iterable<E> {
         return Arrays.copyOf(data, size);
     }
 
+    /**
+     *
+     * @return an iterator for the array list
+     */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {

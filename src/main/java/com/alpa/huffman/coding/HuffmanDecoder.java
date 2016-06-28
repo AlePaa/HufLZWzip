@@ -1,8 +1,12 @@
-package com.alpa.huflzwzip.huffman.coding;
+package com.alpa.huffman.coding;
 
-import com.alpa.huflzwzip.huffman.io.BitInputStream;
+import com.alpa.huffman.io.BitInputStream;
 import java.io.IOException;
 
+/**
+ * Reads the input file bit-by-bit and traverses the Huffman tree
+ * to decode an encoded file
+ */
 public final class HuffmanDecoder {
 
     private BitInputStream input;
@@ -10,7 +14,8 @@ public final class HuffmanDecoder {
     public CodeTree codeTree;
 
     /**
-     * @param i
+     * 
+     * @param i the input stream
      * @throws NullPointerException
      */
     public HuffmanDecoder(BitInputStream i) {
@@ -26,7 +31,6 @@ public final class HuffmanDecoder {
      * @throws NullPointerException
      */
     public int read() throws IOException {
-        System.out.println("reading..");
         if (codeTree == null) {
             throw new NullPointerException("Code tree is null");
         }

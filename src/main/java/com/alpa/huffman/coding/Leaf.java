@@ -1,5 +1,8 @@
-package com.alpa.huflzwzip.huffman.coding;
+package com.alpa.huffman.coding;
 
+/**
+ * A leaf node in a Huffman tree
+ */
 public final class Leaf implements Tree {
 
     public final int symbol;

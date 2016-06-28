@@ -1,4 +1,4 @@
-package com.alpa.huflzwzip.huffman.io;
+package com.alpa.huffman.io;
 
 import java.io.EOFException;
 import java.io.IOException;

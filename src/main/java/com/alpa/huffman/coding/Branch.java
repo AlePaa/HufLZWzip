@@ -1,5 +1,8 @@
-package com.alpa.huflzwzip.huffman.coding;
+package com.alpa.huffman.coding;
 
+/**
+ * An inner node in a Huffman tree
+ */
 public final class Branch implements Tree {
 
     public final Tree left;

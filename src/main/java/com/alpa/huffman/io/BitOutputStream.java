@@ -1,4 +1,4 @@
-package com.alpa.huflzwzip.huffman.io;
+package com.alpa.huffman.io;
 
 import java.io.IOException;
 import java.io.OutputStream;

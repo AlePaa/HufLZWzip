@@ -1,9 +1,12 @@
-package com.alpa.huflzwzip.huffman.coding;
+package com.alpa.huffman.coding;
 
-import com.alpa.huflzwzip.huffman.io.BitOutputStream;
+import com.alpa.huffman.io.BitOutputStream;
+import com.alpa.util.ArrayList;
 import java.io.IOException;
-import com.alpa.huflzwzip.datastruct.ArrayList;
 
+/**
+ * Writes encodings one bit at a time to the output stream
+ */
 public final class HuffmanEncoder {
 
     private BitOutputStream output;
@@ -34,7 +37,6 @@ public final class HuffmanEncoder {
         ArrayList<Integer> bits = codeTree.getCode(symbol);
 
         for (int b : bits) {
-            System.out.println("writing " + b);
             output.write(b);
         }
     }

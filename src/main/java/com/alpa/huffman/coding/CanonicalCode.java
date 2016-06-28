@@ -1,9 +1,11 @@
-package com.alpa.huflzwzip.huffman.coding;
+package com.alpa.huffman.coding;
 
-import java.util.ArrayList;
+import com.alpa.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
+/**
+ * A code tree for canonical Huffman coding
+ */
 public final class CanonicalCode {
 
     private int[] codeLengths;
@@ -27,8 +29,10 @@ public final class CanonicalCode {
         }
         codeLengths = codeL.clone();
         Arrays.sort(codeLengths);
+
         int currentLevel = codeLengths[codeLengths.length - 1];
         int nodeAtLevel = 0;
+
         for (int i = codeLengths.length - 1; i >= 0 && codeLengths[i] > 0; i--) {
             int c = codeLengths[i];
             while (c < currentLevel) {
@@ -74,6 +78,12 @@ public final class CanonicalCode {
         buildCodeLengths(tree.root, 0);
     }
 
+    /**
+     * Recursively find out the depths for the leaves in the Huffman tree
+     *
+     * @param tree a subtree of the Huffman tree
+     * @param depth the depth of the current iteration
+     */
     private void buildCodeLengths(Tree tree, int depth) {
         if (tree instanceof Branch) {
             Branch branch = (Branch) tree;
@@ -113,15 +123,16 @@ public final class CanonicalCode {
     }
 
     /**
-     * @return the converted Canonical Huffman code tree
+     * @return a canonical Huffman tree
      */
     public CodeTree toCodeTree() {
-        List<Tree> trees = new ArrayList<>();
+        ArrayList<Tree> trees = new ArrayList<>();
         for (int i = max(codeLengths); i >= 0; i--) {
             if (trees.size() % 2 != 0) {
                 throw new AssertionError();
             }
-            List<Tree> newNodes = new ArrayList<>();
+
+            ArrayList<Tree> newNodes = new ArrayList<>();
 
             if (i > 0) {
                 for (int j = 0; j < codeLengths.length; j++) {
@@ -143,6 +154,11 @@ public final class CanonicalCode {
         return new CodeTree((Branch) trees.get(0), codeLengths.length);
     }
 
+    /**
+     *
+     * @param array
+     * @return the highest value in the input array
+     */
     private static int max(int[] array) {
         int retVal = array[0];
         for (int x : array) {
